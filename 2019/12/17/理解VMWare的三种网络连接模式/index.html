@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      小抄 | Lulu.博客
+      理解VMWare的三种网络连接模式 | Lulu.博客
     
   </title>
   <meta name="author" content="Daryll">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《小抄》
+			当前文章&nbsp;:&nbsp;《理解VMWare的三种网络连接模式》
 		
 	</p>
 
@@ -265,8 +265,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		小抄
+	<a href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" itemprop="url">
+		理解VMWare的三种网络连接模式
 	</a>
 
 	</div>
@@ -279,8 +279,8 @@
 
 	发布于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="datePublished">
+	<a href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" itemprop="url">
+		<time datetime="2019-12-17T04:00:40.000Z" itemprop="datePublished">
 	  		2019-12-17
 	  </time>
 	</a>
@@ -297,8 +297,8 @@
 
 	更新于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="dateUpdated">
+	<a href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" itemprop="url">
+		<time datetime="2019-12-17T04:00:40.000Z" itemprop="dateUpdated">
 	  		2019-12-17
 	  </time>
 	</a> 
@@ -318,10 +318,23 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。</p>
-<p>没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。</p>
-<p>如果对当下迷茫，那就少说多想；如果有了方向，那就默默耕耘。</p>
-<p>如果你的意识依旧停留在满足生存上，而不是为了更好的生活或实现自己的潜在价值与能力，那谈恋爱也无非是找个人互相饲养、彼此慰藉罢了。</p>
+		<p>VMWare支持三种类型的网络：</p>
+<p>bridged（桥接模式）<br>NAT（网络地址转换模式）<br>Host-only（主机模式）<br>理解三种工作模式</p>
+<p>VMWare提供了三种工作模式，它们是bridged(桥接模式)、NAT(网络地址转换模式)和host-only(主机模式)。要想在网络管理和维护中合理应用它们，就应该先了解一下这三种工作模式。</p>
+<p>1.bridged(桥接模式)</p>
+<p>在这种模式下，VMWare虚拟出来的操作系统就像是局域网中的一台独立的主机，它可以访问网内任何一台机器。在桥接模式下，需要手工为虚拟系统配置IP地址、子网掩码，而且还要和宿主机器处于同一网段，这样虚拟系统才能和宿主机器进行通信。同时，由于这个虚拟系统是局域网中的一个独立的主机系统，那么就可以手工配置它的TCP/IP配置信息，以实现通过局域网的网关或路由器访问互联网。</p>
+<p>使用桥接模式的虚拟系统和宿主机器的关系，就像连接在同一个Hub上的两台电脑。想让它们相互通讯，你就需要为虚拟系统配置IP地址和子网掩码，否则就无法通信。</p>
+<p>如果想利用VMWare在局域网内新建一个虚拟服务器，为局域网用户提供网络服务，就应该选择桥接模式。</p>
+<p>2.host-only(主机模式)</p>
+<p>在某些特殊的网络调试环境中，要求将真实环境和虚拟环境隔离开，这时就可采用host-only模式。在host-only模式中，所有的虚拟系统是可以相互通信的，但虚拟系统和真实的网络是被隔离开的。</p>
+<p>提示:在host-only模式下，虚拟系统和宿主机器系统是可以相互通信的，相当于这两台机器通过双绞线互连。</p>
+<p>在host-only模式下，虚拟系统的TCP/IP配置信息(如IP地址、网关地址、DNS服务器等)，都是由VMnet1(host-only)虚拟网络的DHCP服务器来动态分配的。</p>
+<p>如果想利用VMWare创建一个与网内其他机器相隔离的虚拟系统，进行某些特殊的网络调试工作，可选择host-only模式。</p>
+<p>3.NAT(网络地址转换模式)</p>
+<p>使用NAT模式，就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。也就是说，使用NAT模式可以实现在虚拟系统里访问互联网。NAT模式下的虚拟系统的TCP/IP配置信息是由VMnet8(NAT)虚拟网络的DHCP服务器提供的，不必进行手工修改，因此虚拟系统也就无法和本局域网中的其他真实主机进行通讯。采用NAT模式最大的优势是虚拟系统接入互联网非常简单，不需要进行任何其他的配置，只需要宿主机器能访问互联网即可。</p>
+<p>如果想利用VMWare安装一个新的虚拟系统，在虚拟系统中不用进行任何手工配置就能直接访问互联网，建议采用NAT模式。</p>
+<p>提示:以上所提到的NAT模式下的VMnet8虚拟网络，host-ony模式下的VMnet1虚拟网络，以及bridged模式下的VMnet0虚拟网络，都是由VMWare虚拟机自动配置而生成的，不需要用户自行设置。VMnet8和VMnet1提供DHCP服务，VMnet0虚拟网络则不提供。</p>
+<p>出自:李老师.</p>
 	
 	</div>
 	
@@ -340,12 +353,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
 		
-			<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）" rel="prev">
+			<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" title="web-selenium frame（iframe）处理" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2019/12/17/%E5%8D%9A%E5%AE%A2%E7%AE%80%E6%98%93%E6%90%AD%E5%BB%BA/" title="博客简易搭建" rel="next">
+			<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -414,31 +427,6 @@
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" title="理解VMWare的三种网络连接模式">
-								理解VMWare的三种网络连接模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十二月 17日, 2019				
-							</p>
-							<p class="relate-post-content">
-								VMWare支持三种类型的网络：
-bridged（桥接模式）NAT（网络地址转换模式）Host-only（主机模式）理解三种工作模式
-VMWare提供了三种工作模式，它们是bridged(桥接模式)、NAT(网络地址转换模式)和hos...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" title="理解VMWare的三种网络连接模式">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="理解VMWare的三种网络连接模式"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）">
 								Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）			
 							</a>
@@ -461,6 +449,31 @@ VMWare提供了三种工作模式，它们是bridged(桥接模式)、NAT(网络�
 							<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">
+								小抄			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。
+没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。
+如果对当下迷茫，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="小抄"/>
 							</a>
 						</div>
 					</li>											

@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      小抄 | Lulu.博客
+      web-selenium frame（iframe）处理 | Lulu.博客
     
   </title>
   <meta name="author" content="Daryll">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《小抄》
+			当前文章&nbsp;:&nbsp;《web-selenium frame（iframe）处理》
 		
 	</p>
 
@@ -258,6 +258,18 @@
 		插件作者：KELEN
 		插件来源: https://github.com/KELEN/katelog
 -->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
 	 
 
 <div class="layout-post">
@@ -265,8 +277,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		小抄
+	<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" itemprop="url">
+		web-selenium frame（iframe）处理
 	</a>
 
 	</div>
@@ -279,8 +291,8 @@
 
 	发布于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="datePublished">
+	<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" itemprop="url">
+		<time datetime="2019-12-17T04:29:34.000Z" itemprop="datePublished">
 	  		2019-12-17
 	  </time>
 	</a>
@@ -297,8 +309,8 @@
 
 	更新于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="dateUpdated">
+	<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" itemprop="url">
+		<time datetime="2019-12-17T04:29:34.000Z" itemprop="dateUpdated">
 	  		2019-12-17
 	  </time>
 	</a> 
@@ -318,11 +330,41 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。</p>
-<p>没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。</p>
-<p>如果对当下迷茫，那就少说多想；如果有了方向，那就默默耕耘。</p>
-<p>如果你的意识依旧停留在满足生存上，而不是为了更好的生活或实现自己的潜在价值与能力，那谈恋爱也无非是找个人互相饲养、彼此慰藉罢了。</p>
-	
+		<p> 在web应用中，前台网页的设计一般会用到iframe/frame表单嵌套页面的应用。简单的就是一个页面签嵌套多个HEML/JSP文件。selenium webdriver  只能在同一页面识别定位元素，可以狭隘的理解成只能识别当前所在位置的页面上的元素。对于不同的iframe/frame表单中的元素是无法直接定位的。需要结合switchTo().frame()方法切换到指定的frame/iframe中。switchTo().frame()默认的是取表单的ID和name属性。如果没有id和name ,可通过Xpath路径定位。<br>对表单操作完成之后可以通过driver.switchTo().defaultContent();跳出表单。</p>
+<p>frameset不用切，frame需层层切！<br>frame标签有frameset、frame、iframe三种，frameset跟其他普通标签没有区别，不会影响到正常的定位，而frame与iframe对selenium定位而言是一样的，selenium有一组方法对frame进行操作。<br>1.怎么切到frame中(switch_to.frame())<br>selenium提供了switch_to.frame()方法来切换frame<br>switch_to.frame(reference)<br>不得不提到switch_to_frame()，很多人在这样写的时候会发现，这句话被划上了删除线，原因是这个方法已经out了，之后很有可能会不支持，建议的写法是switch_to.frame()</p>
+<p>reference是传入的参数，用来定位frame，可以传入id、name、index以及selenium的WebElement对象，假设有如下HTML代码 index.html：</p>
+<html lang="en">
+<head>
+    <title>FrameTest</title>
+</head>
+<body>
+<iframe src="a.html" id="frame1" name="myframe"></iframe>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":270,"height":320},"mobile":{"show":true},"react":{"opacity":0.7}});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":270,"height":320},"mobile":{"show":true},"react":{"opacity":0.7}});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":270,"height":320},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
+想要定位其中的iframe并切进去，可以通过如下代码：
+
+<p>from selenium import webdriver<br>driver = webdriver.Firefox()<br>driver.switch_to.frame(0)  # 1.用frame的index来定位，第一个是0</p>
+<h1 id="driver-switch-to-frame-“frame1”-2-用id来定位"><a href="#driver-switch-to-frame-“frame1”-2-用id来定位" class="headerlink" title="driver.switch_to.frame(“frame1”)  # 2.用id来定位"></a>driver.switch_to.frame(“frame1”)  # 2.用id来定位</h1><h1 id="driver-switch-to-frame-“myframe”-3-用name来定位"><a href="#driver-switch-to-frame-“myframe”-3-用name来定位" class="headerlink" title="driver.switch_to.frame(“myframe”)  # 3.用name来定位"></a>driver.switch_to.frame(“myframe”)  # 3.用name来定位</h1><h1 id="driver-switch-to-frame-driver-find-element-by-tag-name-“iframe”-4-用WebElement对象来定位"><a href="#driver-switch-to-frame-driver-find-element-by-tag-name-“iframe”-4-用WebElement对象来定位" class="headerlink" title="driver.switch_to.frame(driver.find_element_by_tag_name(“iframe”))  # 4.用WebElement对象来定位"></a>driver.switch_to.frame(driver.find_element_by_tag_name(“iframe”))  # 4.用WebElement对象来定位</h1><p>通常采用id和name就能够解决绝大多数问题。但有时候frame并无这两项属性，则可以用index和WebElement来定位：</p>
+<p>index从0开始，传入整型参数即判定为用index定位，传入str参数则判定为用id/name定位<br>WebElement对象，即用find_element系列方法所取得的对象，我们可以用tag_name、xpath等来定位frame对象<br>举个栗子：</p>
+<iframe src="myframetest.html">
+用xpath定位，传入WebElement对象：
+
+<p>driver.switch_to.frame(driver.find_element_by_xpath(“//iframe[contains(@src,’myframe’)]”))<br>2.从frame中切回主文档(switch_to.default_content())<br>切到frame中之后，我们便不能继续操作主文档的元素，这时如果想操作主文档内容，则需切回主文档。</p>
+<p>driver.switch_to.default_content()<br>3.嵌套frame的操作(switch_to.parent_frame())<br>有时候我们会遇到嵌套的frame，如下：</p>
+<html>
+    <iframe id="frame1">
+        <iframe id="frame2">
+    </iframe>
+</iframe></html>
+1.从主文档切到frame2，一层层切进去
+
+
+<p>driver.switch_to.frame(“frame1”)<br>driver.switch_to.frame(“frame2”)</p>
+<p>2.从frame2再切回frame1，这里selenium给我们提供了一个方法能够从子frame切回到父frame，而不用我们切回主文档再切进来。<br>driver.switch_to.parent_frame()  # 如果当前已是主文档，则无效果<br>有了parent_frame()这个相当于后退的方法，我们可以随意切换不同的frame，随意的跳来跳去了。</p>
+<p>所以只要善用以下三个方法，遇到frame分分钟搞定：</p>
+<p>driver.switch_to.frame(reference)<br>driver.switch_to.parent_frame()<br>driver.switch_to.default_content()</p>
+<p>出自:李老师.</p>
+</iframe>	
 	</div>
 	
 	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -340,12 +382,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
 		
-			<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）" rel="prev">
+			<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" title="Selenium之CSS定位汇总" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2019/12/17/%E5%8D%9A%E5%AE%A2%E7%AE%80%E6%98%93%E6%90%AD%E5%BB%BA/" title="博客简易搭建" rel="next">
+			<a href="/2019/12/17/%E7%90%86%E8%A7%A3VMWare%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%A8%A1%E5%BC%8F/" title="理解VMWare的三种网络连接模式" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -384,29 +426,6 @@
 							<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" title="Selenium之CSS定位汇总">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Selenium之CSS定位汇总"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" title="web-selenium frame（iframe）处理">
-								web-selenium frame（iframe）处理			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十二月 17日, 2019				
-							</p>
-							<p class="relate-post-content">
-								 在web应用中，前台网页的设计一般会用到iframe/frame表单嵌套页面的应用。简单的就是一个页面签嵌套多个HEML/JSP文件。selenium webdriver  只能在同一页面识别定位元素，可以狭隘的理解成只能识别当前所...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" title="web-selenium frame（iframe）处理">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="web-selenium frame（iframe）处理"/>
 							</a>
 						</div>
 					</li>											
@@ -461,6 +480,31 @@ VMWare提供了三种工作模式，它们是bridged(桥接模式)、NAT(网络�
 							<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">
+								小抄			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。
+没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。
+如果对当下迷茫，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="小抄"/>
 							</a>
 						</div>
 					</li>											

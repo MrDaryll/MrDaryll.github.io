@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      小抄 | Lulu.博客
+      Selenium之CSS定位汇总 | Lulu.博客
     
   </title>
   <meta name="author" content="Daryll">
@@ -160,7 +160,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《小抄》
+			当前文章&nbsp;:&nbsp;《Selenium之CSS定位汇总》
 		
 	</p>
 
@@ -265,8 +265,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		小抄
+	<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" itemprop="url">
+		Selenium之CSS定位汇总
 	</a>
 
 	</div>
@@ -279,8 +279,8 @@
 
 	发布于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="datePublished">
+	<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" itemprop="url">
+		<time datetime="2019-12-17T04:31:35.000Z" itemprop="datePublished">
 	  		2019-12-17
 	  </time>
 	</a>
@@ -297,8 +297,8 @@
 
 	更新于
 
-	<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" itemprop="url">
-		<time datetime="2019-12-17T02:57:33.000Z" itemprop="dateUpdated">
+	<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" itemprop="url">
+		<time datetime="2019-12-17T04:31:35.000Z" itemprop="dateUpdated">
 	  		2019-12-17
 	  </time>
 	</a> 
@@ -318,10 +318,21 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。</p>
-<p>没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。</p>
-<p>如果对当下迷茫，那就少说多想；如果有了方向，那就默默耕耘。</p>
-<p>如果你的意识依旧停留在满足生存上，而不是为了更好的生活或实现自己的潜在价值与能力，那谈恋爱也无非是找个人互相饲养、彼此慰藉罢了。</p>
+		<p><img src="/.com//800.png" alt="alt"><br>定位输入框</p>
+<p>一：单一属性定位<br>1：type selector<br>driver.find_element_by_css_selector(‘input’)</p>
+<p>2：id 定位<br>driver.find_element_by_css_selector(‘#kw’)</p>
+<p>3：class 定位<br>driver.find_element_by_css_selector(‘.s_ipt’)</p>
+<p>4：其他属性定位<br>driver.find_element_by_css_selector(‘[name=’wd’]’)<br>driver.find_element_by_css_selector(“[type=’text’]”)</p>
+<p>二：组合属性定位<br>1：id组合属性定位<br>driver.find_element_by_css_selector(“input#kw”)</p>
+<p>2：class组合属性定位<br>driver.find_element_by_css_selector(“input.s_ipt”)</p>
+<p>3：其他属性组合定位<br>driver.find_element_by_css_selector(“input[name=’wd’]”)</p>
+<p>4：仅有属性名，没有值也可以<br>driver.find_element_by_css_selector(“input[name]”)</p>
+<p>5：两个其他属性组合定位<br>driver.find_element_by_css_selector(“[name=’wd’][autocomplete=’off’]”)</p>
+<p>6：模糊匹配属性值方法<br>以百度首页点击按钮为例<br><img src="/.com//900.png" alt="alt"><br>1&gt;属性值由多个空格隔开，匹配其中一个值的方法<br>driver.find_element_by_css_selector(“input[class~=’btn’]”)</p>
+<p>2&gt;匹配属性值为字符串开头的方法<br>driver.find_element_by_css_selector(“input[class^=’btn’]”)</p>
+<p>3&gt;匹配属性值字符串结尾的方法<br>driver.find_element_by_css_selector(“input[class$=’s_btn’]”)<br><img src="/.com//600.png" alt="alt"><br>4&gt;匹配被-分割的属性值的方法,如上图的class<br>driver.find_element_by_css_selector(“input[class|=’s’]”)  #要求精确填写的属性值</p>
+<p>三：层级定位<br><img src="/.com//700.png" alt="alt"><br>1：E&gt;F    E下面的F这个元素<br>driver.find_element_by_css_selector(‘from#form&gt;span&gt;input’)#id是form的form下面的span下面的input<br><img src="/.com//500.png" alt="alt"><br>2：E:nth-child(n)  如上图,<br>driver.find_element_by_css_selector(‘#u_sp &gt; a:nth-child(1)’)#id为u_sp的下面的第一个a标签。</p>
+<p>#实测，这个定位不到，但是方法是对的，- -<br>3：E:nth-last-child(n)，如字面意思：倒数第几个标签<br>4：E:first-child,第一个标签<br>5：E:last-child,最后一个标签<br>6：E:only-child,唯一的标签</p>
 	
 	</div>
 	
@@ -340,12 +351,8 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
 		
-			<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2019/12/17/%E5%8D%9A%E5%AE%A2%E7%AE%80%E6%98%93%E6%90%AD%E5%BB%BA/" title="博客简易搭建" rel="next">
+			<a href="/2019/12/17/web-selenium-frame%EF%BC%88iframe%EF%BC%89%E5%A4%84%E7%90%86/" title="web-selenium frame（iframe）处理" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -363,31 +370,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" title="Selenium之CSS定位汇总">
-								Selenium之CSS定位汇总			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								十二月 17日, 2019				
-							</p>
-							<p class="relate-post-content">
-								定位输入框
-一：单一属性定位1：type selectordriver.find_element_by_css_selector(‘input’)
-2：id 定位driver.find_element_by_css_selector(...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2019/12/17/Selenium%E4%B9%8BCSS%E5%AE%9A%E4%BD%8D%E6%B1%87%E6%80%BB/" title="Selenium之CSS定位汇总">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Selenium之CSS定位汇总"/>
-							</a>
-						</div>
-					</li>											
-			
 			
 					<li>
 						<div class="relate-post-text">
@@ -461,6 +443,31 @@ VMWare提供了三种工作模式，它们是bridged(桥接模式)、NAT(网络�
 							<a href="/2019/12/17/Kobe-Bean-Bryant-Cox%EF%BC%88%E7%A7%91%E6%AF%94-%E6%AF%94%E6%81%A9-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9-%E8%80%83%E5%85%8B%E6%96%AF%EF%BC%89/" title="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Kobe-Bean-Bryant-Cox（科比-比恩-布莱恩特-考克斯）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">
+								小抄			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								如果当下所做的一切努力都是为了生存，那我奉劝还是不要去谈恋爱了，最基本的东西你都没搞清楚，合适的人也好，真挚的感情也好，都不是空中楼阁，而是一种更高级的精神需求。
+没有物质保障的爱情，不用风去吹，自己就会被琐碎打败。
+如果对当下迷茫，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/12/17/%E5%B0%8F%E6%8A%84/" title="小抄">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="小抄"/>
 							</a>
 						</div>
 					</li>											
